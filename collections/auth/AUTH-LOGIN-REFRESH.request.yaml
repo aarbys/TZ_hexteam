@@ -1,0 +1,28 @@
+$kind: http-request
+name: AUTH/LOGIN/REFRESH
+url: "{{baseUrl}}/api/auth/refresh"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"refresh_token\": \"{{refresh_token}}\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "if (pm.response.code == 200) {\r
+
+      \    const response = pm.response.json();\r
+
+      \r
+
+      \    pm.environment.set(\"access_token\", response.access_token);\r
+
+      \    pm.environment.set(\"refresh_token\", response.refresh_token);\r
+
+      \r
+
+      }"
+    language: text/javascript
+order: 1963950152925239

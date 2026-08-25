@@ -1,0 +1,9 @@
+name: new
+values:
+  - key: baseUrl
+    value: ''
+  - key: access_token
+    value: ''
+  - key: refresh_token
+    value: ''
+color: 0

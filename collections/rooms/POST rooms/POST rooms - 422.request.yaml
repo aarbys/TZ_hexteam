@@ -1,0 +1,17 @@
+$kind: http-request
+name: POST rooms - 422
+url: "{{baseUrl}}/api/rooms"
+method: POST
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 422\", function () {\r
+
+      pm.response.to.have.status(422);\r
+
+      })"
+    language: text/javascript
+order: 3956978886352112

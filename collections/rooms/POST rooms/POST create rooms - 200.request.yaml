@@ -1,0 +1,20 @@
+$kind: http-request
+name: POST create rooms - 200
+url: "{{baseUrl}}/api/rooms"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Kitchen\",\r
+
+    \  \"area\": 1,\r
+
+    \  \"description\": \"Test room 1\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+order: 1787569664465

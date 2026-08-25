@@ -1,0 +1,20 @@
+$kind: http-request
+name: PATCH room by id - 422
+url: "{{baseUrl}}/api/rooms/{{created_room}}"
+method: PATCH
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 422\", function () {\r
+
+      pm.response.to.have.status(422);\r
+
+      })\r\n"
+    language: text/javascript
+order: 4753

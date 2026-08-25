@@ -1,0 +1,40 @@
+$kind: http-request
+name: PATCH room by id - 404
+url: "{{baseUrl}}/api/rooms/{{invalid_room_id}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Rest room\",\r
+
+    \  \"description\": \"Edited room name\",\r
+
+    \  \"area\": 1\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 404\", function () {\r
+
+      pm.response.to.have.status(404);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Room id not found\", function () {\r
+
+      \    const wrong_room_id = pm.collectionVariables.get(\"invalid_room_id\")\r
+
+      \    console.log(wrong_room_id)\r
+
+      \    pm.response.to.have.jsonBody(\"detail\", \"Room 'id=\" + wrong_room_id + \"' not found\");\r
+
+      })\r\n"
+    language: text/javascript
+order: 5000

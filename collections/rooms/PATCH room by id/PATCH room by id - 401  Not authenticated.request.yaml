@@ -1,0 +1,32 @@
+$kind: http-request
+name: PATCH room by id - 401  Not authenticated
+url: "{{baseUrl}}/api/rooms/{{created_room}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Rest room\",\r
+
+    \  \"description\": \"Edited room name\",\r
+
+    \  \"area\": 1\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 401\", function () {\r
+
+      pm.response.to.have.status(401);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Not authenticated\", function () {\r
+
+      pm.response.to.have.jsonBody('detail', 'Not authenticated');\r
+
+      })"
+    language: text/javascript
+order: 3000

@@ -1,0 +1,21 @@
+$kind: http-request
+name: GET get room by id - 401 Not authenticated
+url: "{{baseUrl}}/api/rooms/{{created_room}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 401\", function () {\r
+
+      pm.response.to.have.status(401);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Not authenticated\", function () {\r
+
+      pm.response.to.have.jsonBody('detail', 'Not authenticated');\r
+
+      })"
+    language: text/javascript
+order: 2964216555971924

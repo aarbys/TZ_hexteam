@@ -1,0 +1,26 @@
+$kind: http-request
+name: GET rooms - 401 Invalid Token
+url: "{{baseUrl}}/api/rooms"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: asdasdasd
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 401\", function () {\r
+
+      pm.response.to.have.status(401);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"Not authenticated\", function () {\r
+
+      pm.response.to.have.jsonBody('detail', 'Could not validate
+      credentials');\r
+
+      })"
+    language: text/javascript
+order: 211838710561278

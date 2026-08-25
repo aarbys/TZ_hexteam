@@ -1,0 +1,44 @@
+$kind: http-request
+name: PATCH room by id - 200
+url: "{{baseUrl}}/api/rooms/{{created_room}}"
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \  \"name\": \"Rest room\",\r
+
+    \  \"description\": \"Edited room name\",\r
+
+    \  \"area\": 1\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{access_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      pm.response.to.have.status(200);\r
+
+      })\r
+
+      \r
+
+      pm.test(\"New room name\", function () {\r
+
+      \    pm.response.to.have.jsonBody(\"name\", \"Rest room\");\r
+
+      })\r
+
+      pm.test(\"ID is correct\", function () {\r
+
+      \    const id = pm.collectionVariables.get(\"created_room\");\r
+
+      \    pm.response.to.have.jsonBody(\"id\", Number(id));\r
+
+      })"
+    language: text/javascript
+order: 1000
